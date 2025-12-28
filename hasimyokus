@@ -1,0 +1,47 @@
+flowchart TD
+    %% Start/End Symbols (Ovals)
+    Start([1. Start]) --> Step2[/2. Enter ID and Password/]
+    
+    %% Input/Output Symbols (Parallelograms)
+    Step2 --> Step3[3. Validate credentials]
+    Step3 --> Step4[/4. Search for book title/]
+    
+    %% Process Symbols (Rectangles)
+    Step4 --> Step5[5. Check library database]
+    
+    %% Decision Symbols (Diamonds)
+    Step5 --> Step6{6. Is book in stock?}
+    
+    Step6 -- No --> Step7[7. Notify user] --> End([26. End])
+    
+    Step6 -- Yes --> Step8[/8. Display book details/]
+    Step8 --> Step9[/9. Click Borrow button/]
+    Step10[10. Check active penalties]
+    Step9 --> Step10
+    
+    Step10 --> Step11{11. Any unpaid fines?}
+    
+    Step11 -- Yes --> Step12[12. Request payment] --> End
+    
+    Step11 -- No --> Step13[13. Check borrowing limit]
+    Step13 --> Step14{14. Limit reached?}
+    
+    Step14 -- Yes --> Step15[15. Reject request] --> End
+    
+    Step14 -- No --> Step16[/16. Generate pickup QR code/]
+    Step16 --> Step17[/17. Scan QR at library/]
+    Step17 --> Step18[18. Check book condition]
+    
+    Step18 --> Step19{19. Is condition good?}
+    
+    Step19 -- No --> Step20[20. Cancel and record damage] --> End
+    
+    Step19 -- Yes --> Step21[21. Update status to Borrowed]
+    Step21 --> Step22[/22. Send confirmation email/]
+    Step22 --> Step23[23. User receives book]
+    
+    Step23 --> Step24{24. Due date reached?}
+    
+    Step24 -- No --> Step23
+    Step24 -- Yes --> Step25[25. Return book to library]
+    Step25 --> End
